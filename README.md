@@ -1,5 +1,8 @@
 # Caelestia Spatial & Infinite Canvas Display System
 
+**Original Author & Creator:** [Mohammed Awad](https://github.com/Mohammed-Awad-ENG)  
+*Free to use, customize, and fork with attribution.*
+
 [![Hyprland](https://img.shields.io/badge/Hyprland-Wayland%20Compositor-00c8ff?style=for-the-badge&logo=archlinux)](https://hyprland.org)
 [![Quickshell](https://img.shields.io/badge/Quickshell-Qt6%20%2F%20QML-41cd52?style=for-the-badge&logo=qt)](https://quickshell.outfoxxed.me)
 [![Caelestia](https://img.shields.io/badge/Caelestia-Shell%20Ecosystem-ff7043?style=for-the-badge)](https://github.com/caelestia-dots)
@@ -373,11 +376,12 @@ Ensure `LayoutMapPopout.qml` is registered in `~/.config/quickshell/caelestia/mo
 
 ---
 
-## Contributing & License
+## Author & License
+
+Created by **Mohammed Awad** ([@Mohammed-Awad-ENG](https://github.com/Mohammed-Awad-ENG)).  
+This display system is free to use, modify, and fork under the [MIT License](LICENSE) with author attribution.
 
 Contributions are welcome! Please ensure that:
 1. Documentation integrity and clean QML styling are maintained.
 2. Changes to `SpatialCanvas.js` preserve `compact2D` gap healing and Float Place grouping logic.
 3. Tests are verified in a Wayland session before submitting PRs.
-
-Distributed under the [MIT License](LICENSE).
