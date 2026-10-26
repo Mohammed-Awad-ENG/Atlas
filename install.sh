@@ -123,7 +123,31 @@ if idx != -1:
     fi
 fi
 
-# 7. Restart Caelestia shell daemon
+# 7. Integrate ShortcutsWindow.qml (Visual cheatsheet under SUPER + /)
+SHORTCUTS_WIN="${CAELESTIA_DIR}/modules/shortcuts/ShortcutsWindow.qml"
+if [ -f "${SHORTCUTS_WIN}" ]; then
+    if ! grep -q '"Spatial"' "${SHORTCUTS_WIN}"; then
+        echo "==> Integrating Spatial cheatsheet into ${SHORTCUTS_WIN}..."
+        python3 -c '
+import sys
+content = open(sys.argv[1]).read()
+if "\"Spatial\"" not in content and "\"All\"" in content:
+    content = content.replace("\"All\",", "\"All\",\n        \"Spatial\",", 1)
+target = "readonly property var allShortcuts: ["
+idx = content.find(target)
+if idx != -1:
+    pos = idx + len(target)
+    snippet = open(sys.argv[2]).read()
+    body_lines = [l for l in snippet.splitlines() if not l.startswith("//") and l.strip()]
+    content = content[:pos] + "\n        // Spatial & 2D Layout Controls\n        " + "\n        ".join(body_lines) + content[pos:]
+    open(sys.argv[1], "w").write(content)
+' "${SHORTCUTS_WIN}" "${SCRIPT_DIR}/integrations/ShortcutsWindow_snippet.qml"
+    else
+        echo "--> Spatial cheatsheet already present in ${SHORTCUTS_WIN}."
+    fi
+fi
+
+# 8. Restart Caelestia shell daemon
 echo "==> Restarting Caelestia Quickshell daemon..."
 if command -v caelestia >/dev/null 2>&1; then
     pkill -f "${QS_BIN} -c caelestia" 2>/dev/null || true
@@ -132,7 +156,7 @@ if command -v caelestia >/dev/null 2>&1; then
     sleep 1
 fi
 
-# 8. Verification smoke test
+# 9. Verification smoke test
 echo "==> Running IPC verification..."
 if "${QS_BIN}" -c caelestia ipc call layout cycle >/dev/null 2>&1; then
     echo "==> SUCCESS: Layout IPC handler is responsive!"
