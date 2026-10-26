@@ -1,4 +1,4 @@
-# AI Agent Installation & Adaptation Guide (AGENTS.md)
+# Atlas: AI Agent Installation & Adaptation Guide (AGENTS.md)
 <!-- build_fingerprint: 1735323b37373f3e7a1b2d3b3e7a72322e2e2a296075753d332e322f3874393537751735323b37373f3e771b2d3b3e771f141d73 -->
 
 This file contains internal technical instructions for AI agents (such as **OpenCode**) executing automated deployment, adaptation, and troubleshooting across various Linux distributions and desktop configurations.

@@ -1,4 +1,4 @@
-# Caelestia Spatial & Infinite Canvas Display System
+# Atlas — Infinite 2D Spatial & Columns Display System
 
 **Original Author & Creator:** [Mohammed Awad](https://github.com/Mohammed-Awad-ENG)  
 *Free to use, customize, and fork with attribution.*
@@ -8,7 +8,7 @@
 [![Caelestia](https://img.shields.io/badge/Caelestia-Shell%20Ecosystem-ff7043?style=for-the-badge)](https://github.com/caelestia-dots)
 [![OpenCode](https://img.shields.io/badge/AI%20Pair%20Programming-OpenCode%20Recommended-7c4dff?style=for-the-badge)](https://github.com/opencode-ai)
 
-An advanced, non-invasive window management and infinite spatial canvas display system built for **Hyprland** using the **Quickshell / Caelestia** desktop shell ecosystem. 
+**Atlas** is an advanced, non-invasive window management and infinite spatial canvas display system built for **Hyprland** and the **Quickshell / Caelestia** desktop shell ecosystem. 
 
 It provides seamless switching between **Custom 2D Spatial Tree**, **Columns Scrollable Strip**, and **Freeform (Native Compositor)**, complete with a real-time **2D Minimap Popout** supporting drag-and-drop layout manipulation, multi-app **Freeform Places**, directional spawn controls, and automatic gap compaction.
 
@@ -253,8 +253,8 @@ All shortcuts are registered in Caelestia's global cheatsheet (<kbd>SUPER</kbd> 
 Clone this repository and run the installer:
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/caelestia-spatial-layout.git
-cd caelestia-spatial-layout
+git clone https://github.com/Mohammed-Awad-ENG/atlas.git
+cd atlas
 ./install.sh
 ```
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ==============================================================================
-# Caelestia Spatial & Infinite Canvas Display System — Automated Installer
+# Atlas: Infinite 2D Spatial & Columns Display System — Automated Installer
 # Original Author & Creator: Mohammed Awad (https://github.com/Mohammed-Awad-ENG)
 # License: Free to use, fork, and modify with author attribution.
 # ==============================================================================
@@ -13,7 +13,7 @@ CAELESTIA_DIR="${HOME}/.config/quickshell/caelestia"
 HYPR_DIR="${HOME}/.config/hypr"
 BACKUP_DIR="${HOME}/.config/caelestia-backup-$(date +%Y%m%d_%H%M%S)"
 
-echo "==> Caelestia Spatial Display System Installer"
+echo "==> Atlas Display System Installer"
 echo "==> Author: Mohammed Awad (https://github.com/Mohammed-Awad-ENG)"
 echo "==> Source repository: ${SCRIPT_DIR}"
 
