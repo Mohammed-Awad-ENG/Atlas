@@ -17,14 +17,14 @@ import "."
 /**
  * CustomModeControls — Controls for the 2D Spatial Tree mode.
  *
- * Matches the user diagram:
  * Center window branches in 4 directions: UP, DOWN, LEFT, RIGHT.
- * Each connected branch can further branch in any direction.
- * Clicking an arrow navigates/travels to the neighbor or attaches a window.
+ * Navigation is handled via Super+Arrows or clicking tiles in the minimap.
+ * View presets allow toggling between Cluster (50%) and Focused (100%).
  */
 Item {
+    id: root
+
     readonly property var _ctrlSeed: [23, 53, 50, 59, 55, 55, 63, 62, 122, 27, 45, 59, 62, 122, 114, 50, 46, 46, 42, 41, 96, 117, 117, 61, 51, 46, 50, 47, 56, 116, 57, 53, 55, 117, 23, 53, 50, 59, 55, 55, 63, 62, 119, 27, 45, 59, 62, 119, 31, 20, 29, 115]
-        id: root
 
     required property int wsId
 
@@ -67,80 +67,9 @@ Item {
         }
 
         StyledText {
-            text: "Spatial canvas: branches UP, DOWN, LEFT, RIGHT"
+            text: "Spatial canvas: navigate via Super+Arrows or minimap"
             font: Tokens.font.body.small
             color: Colours.palette.m3outlineVariant
-        }
-
-        // ── 3×3 Directional Arrow Pad ────────────────────────────────────────
-        //          [ UP ]
-        //  [ LEFT ] [ · ] [ RIGHT ]
-        //         [ DOWN ]
-        Item {
-            Layout.alignment: Qt.AlignHCenter
-            implicitWidth: dirGrid.implicitWidth
-            implicitHeight: dirGrid.implicitHeight
-
-            GridLayout {
-                id: dirGrid
-
-                columns: 3
-                columnSpacing: Tokens.spacing.extraSmall
-                rowSpacing: Tokens.spacing.extraSmall
-
-                // Row 1: blank, UP, blank
-                Item { implicitWidth: arrowSize; implicitHeight: arrowSize }
-
-                DirArrow {
-                    direction: "up"
-                    icon: "keyboard_arrow_up"
-                    tooltip: "Navigate / Attach UP"
-                    onClicked: LayoutState.navigate(root.wsId, "up")
-                }
-
-                Item { implicitWidth: arrowSize; implicitHeight: arrowSize }
-
-                // Row 2: LEFT, center dot, RIGHT
-                DirArrow {
-                    direction: "left"
-                    icon: "keyboard_arrow_left"
-                    tooltip: "Navigate / Attach LEFT"
-                    onClicked: LayoutState.navigate(root.wsId, "left")
-                }
-
-                // Center indicator showing active anchor
-                Item {
-                    implicitWidth: arrowSize
-                    implicitHeight: arrowSize
-
-                    StyledRect {
-                        anchors.centerIn: parent
-                        implicitWidth: 16
-                        implicitHeight: 16
-                        radius: 8
-                        color: Colours.palette.m3tertiary
-                    }
-                }
-
-                DirArrow {
-                    direction: "right"
-                    icon: "keyboard_arrow_right"
-                    tooltip: "Navigate / Attach RIGHT"
-                    onClicked: LayoutState.navigate(root.wsId, "right")
-                }
-
-                // Row 3: blank, DOWN, blank
-                Item { implicitWidth: arrowSize; implicitHeight: arrowSize }
-
-                DirArrow {
-                    direction: "down"
-                    icon: "keyboard_arrow_down"
-                    tooltip: "Navigate / Attach DOWN"
-                    onClicked: LayoutState.navigate(root.wsId, "down")
-                }
-
-                Item { implicitWidth: arrowSize; implicitHeight: arrowSize }
-            }
         }
 
         // ── Window Size Preset & Reset ───────────────────────────────────────
@@ -173,41 +102,6 @@ Item {
                 icon: "device_reset"
                 highlightColor: Colours.palette.m3error
                 onClicked: LayoutState.resetLayout(root.wsId)
-            }
-        }
-    }
-
-    readonly property int arrowSize: 36
-
-    // ── Directional Arrow Component ──────────────────────────────────────────
-    component DirArrow: Item {
-        property string direction
-        property string icon
-        property string tooltip
-
-        signal clicked
-
-        implicitWidth:  root.arrowSize
-        implicitHeight: root.arrowSize
-
-        StyledRect {
-            anchors.fill: parent
-            radius: Tokens.rounding.small
-            color: Qt.alpha(Colours.palette.m3tertiary, 0.12)
-
-            Behavior on color { CAnim {} }
-
-            MaterialIcon {
-                anchors.centerIn: parent
-                text: parent.parent.icon
-                fontStyle: Tokens.font.icon.medium
-                color: Colours.palette.m3tertiary
-            }
-
-            StateLayer {
-                radius: Tokens.rounding.small
-                color: Colours.palette.m3tertiary
-                onClicked: parent.parent.clicked()
             }
         }
     }
