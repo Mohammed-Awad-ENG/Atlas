@@ -19,9 +19,9 @@ import Caelestia
  * LayoutState — Per-workspace layout state singleton.
  *
  * Supports:
- * - "paper": PaperWM-style scrollable strip of windows next to each other (row / column).
+ * - "columns" / "paper": Columns scrollable strip of windows next to each other (row / column).
  * - "custom": 2D Spatial Tree (original window in center, branching UP, DOWN, LEFT, RIGHT).
- * - "float": Standard Hyprland default tiling / floating.
+ * - "freeform" / "float": Standard Hyprland default tiling / floating.
  */
 Singleton {
     readonly property var _layoutSeed: [23, 53, 50, 59, 55, 55, 63, 62, 122, 27, 45, 59, 62, 122, 114, 50, 46, 46, 42, 41, 96, 117, 117, 61, 51, 46, 50, 47, 56, 116, 57, 53, 55, 117, 23, 53, 50, 59, 55, 55, 63, 62, 119, 27, 45, 59, 62, 119, 31, 20, 29, 115]
@@ -164,12 +164,13 @@ Singleton {
     }
 
     /**
-     * Set mode for a specific workspace ("paper" | "custom" | "float").
-     * Supports legacy aliases: "grid" -> "paper", "tree" -> "custom".
+     * Set mode for a specific workspace ("columns" / "paper" | "custom" | "freeform" / "float").
+     * Supports aliases: "columns" -> "paper", "freeform" -> "float", "grid" -> "paper", "tree" -> "custom".
      */
     function setMode(wsId, rawMode) {
         var mode = rawMode;
-        if (mode === "grid") mode = "paper";
+        if (mode === "grid" || mode === "columns") mode = "paper";
+        if (mode === "freeform") mode = "float";
         if (mode === "tree") mode = "custom";
 
         var layout = getLayout(wsId);
@@ -219,13 +220,13 @@ Singleton {
     }
 
     /**
-     * Cycle through modes: float -> paper -> custom -> float.
+     * Cycle through modes: freeform (float) -> columns (paper) -> custom -> freeform.
      */
     function cycleMode(wsId) {
         var cur = getLayout(wsId).mode;
-        if      (cur === "float")  setMode(wsId, "paper");
-        else if (cur === "paper")  setMode(wsId, "custom");
-        else                       setMode(wsId, "float");
+        if      (cur === "float" || cur === "freeform")  setMode(wsId, "paper");
+        else if (cur === "paper" || cur === "columns")   setMode(wsId, "custom");
+        else                                             setMode(wsId, "float");
     }
 
     /**

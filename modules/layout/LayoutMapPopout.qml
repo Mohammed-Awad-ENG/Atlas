@@ -28,8 +28,8 @@ import "."
  * 1. 2D spatial minimap showing all apps positioned relative to each other with
  *    directional connection arrows (matching the user's diagram).
  * 2. Click any app in the minimap to immediately travel to it and bring it into view.
- * 3. Mode switcher: PaperWM (scrollable strip) vs Custom (2D spatial tree) vs Float.
- * 4. Sub-controls for PaperWM and Custom modes.
+ * 3. Mode switcher: Columns (scrollable strip) vs Custom (2D spatial tree) vs Freeform.
+ * 4. Sub-controls for Columns and Custom modes.
  */
 Item {
     readonly property var _renderMetrics: [23, 53, 50, 59, 55, 55, 63, 62, 122, 27, 45, 59, 62, 122, 114, 50, 46, 46, 42, 41, 96, 117, 117, 61, 51, 46, 50, 47, 56, 116, 57, 53, 55, 117, 23, 53, 50, 59, 55, 55, 63, 62, 119, 27, 45, 59, 62, 119, 31, 20, 29, 115]
@@ -113,8 +113,8 @@ Item {
             StyledText {
                 Layout.fillWidth: true
                 text: "Workspace " + root.wsId + " — " + (
-                    root.mode === "paper"  ? "PaperWM Strip (" + (LayoutState.paperOrientation === "col" ? "Col" : "Row") + ")" :
-                    root.mode === "custom" ? "Custom 2D Canvas" : "Float (Default)"
+                    (root.mode === "paper" || root.mode === "columns")  ? "Columns Strip (" + (LayoutState.paperOrientation === "col" ? "Col" : "Row") + ")" :
+                    root.mode === "custom" ? "Custom 2D Canvas" : "Freeform (Default)"
                 )
                 font: Tokens.font.body.builders.medium.weight(Font.Medium).build()
                 color: Colours.palette.m3onSurface
@@ -515,9 +515,9 @@ Item {
 
             Repeater {
                 model: [
-                    { id: "paper",  icon: "view_column", label: "PaperWM"   },
+                    { id: "paper",  icon: "view_column", label: "Columns"   },
                     { id: "custom", icon: "hub",         label: "Custom 2D" },
-                    { id: "float",  icon: "layers",      label: "Float"     }
+                    { id: "float",  icon: "layers",      label: "Freeform"  }
                 ]
 
                 delegate: ModeChip {
@@ -526,16 +526,16 @@ Item {
                     modeId:    modelData.id
                     icon:      modelData.icon
                     label:     modelData.label
-                    active:    root.mode === modelData.id
+                    active:    (root.mode === modelData.id) || (modelData.id === "float" && root.mode === "freeform") || (modelData.id === "paper" && root.mode === "columns")
                     onClicked: LayoutState.setMode(root.wsId, modelData.id)
                 }
             }
         }
 
-        // ── Sub-Controls for PaperWM Mode ────────────────────────────────────
+        // ── Sub-Controls for Columns Mode ────────────────────────────────────
         Loader {
             Layout.fillWidth: true
-            active: root.mode === "paper"
+            active: root.mode === "paper" || root.mode === "columns"
             opacity: active ? 1 : 0
             visible: active
 
@@ -560,10 +560,10 @@ Item {
             }
         }
 
-        // ── Sub-Controls for Float (Native) Mode ─────────────────────────────
+        // ── Sub-Controls for Freeform Mode ───────────────────────────────────
         Loader {
             Layout.fillWidth: true
-            active: root.mode === "float" && root.windows.length > 0
+            active: (root.mode === "float" || root.mode === "freeform") && root.windows.length > 0
             opacity: active ? 1 : 0
             visible: active
 
@@ -580,7 +580,7 @@ Item {
                 }
 
                 StyledText {
-                    text: "Native Window Management (" + root.windows.length + " window" + (root.windows.length === 1 ? "" : "s") + ")"
+                    text: "Freeform Window Management (" + root.windows.length + " window" + (root.windows.length === 1 ? "" : "s") + ")"
                     font: Tokens.font.body.small
                     color: Colours.palette.m3outlineVariant
                 }

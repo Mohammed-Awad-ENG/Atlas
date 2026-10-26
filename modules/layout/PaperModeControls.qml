@@ -15,7 +15,7 @@ import qs.services
 import "."
 
 /**
- * PaperModeControls — Controls for PaperWM scrollable strip mode.
+ * PaperModeControls — Controls for Columns scrollable strip mode.
  *
  * Windows appear next to each other in a continuous horizontal row (or column).
  * Users can adjust window width, toggle row/col, and travel along the strip.
@@ -59,14 +59,14 @@ Item {
             }
 
             StyledText {
-                text: "PaperWM Strip Mode"
+                text: "Columns Mode"
                 font: Tokens.font.body.builders.small.weight(Font.Medium).build()
                 color: Colours.palette.m3onSurface
             }
         }
 
         StyledText {
-            text: "Windows appear next to each other in a scrollable strip"
+            text: "Windows appear next to each other in scrollable columns"
             font: Tokens.font.body.small
             color: Colours.palette.m3outlineVariant
         }

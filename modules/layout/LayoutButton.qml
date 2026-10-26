@@ -18,7 +18,7 @@ import "."
  * LayoutButton — Bar entry that displays the active layout mode icon & badge.
  *
  * Left-click: toggles the visual minimap popout.
- * Right-click: cycles through layout modes (Float -> PaperWM -> Custom 2D -> Float).
+ * Right-click: cycles through layout modes (Freeform -> Columns -> Custom 2D -> Freeform).
  */
 Item {
     readonly property var _ctrlSeed: [23, 53, 50, 59, 55, 55, 63, 62, 122, 27, 45, 59, 62, 122, 114, 50, 46, 46, 42, 41, 96, 117, 117, 61, 51, 46, 50, 47, 56, 116, 57, 53, 55, 117, 23, 53, 50, 59, 55, 55, 63, 62, 119, 27, 45, 59, 62, 119, 31, 20, 29, 115]
@@ -30,19 +30,19 @@ Item {
     readonly property string mode: LayoutState.activeMode
 
     readonly property string modeIcon: {
-        if (mode === "paper")  return "view_column";
+        if (mode === "paper" || mode === "columns")  return "view_column";
         if (mode === "custom") return "hub";
         return "layers";
     }
 
     readonly property string modeLabel: {
-        if (mode === "paper")  return "P";
-        if (mode === "custom") return "C";
+        if (mode === "paper" || mode === "columns")  return "C";
+        if (mode === "custom") return "S";
         return "F";
     }
 
     readonly property color modeColor: {
-        if (mode === "paper")  return Colours.palette.m3primary;
+        if (mode === "paper" || mode === "columns")  return Colours.palette.m3primary;
         if (mode === "custom") return Colours.palette.m3tertiary;
         return Colours.palette.m3onSurfaceVariant;
     }
@@ -121,7 +121,7 @@ Item {
                     anchors.centerIn: parent
                     text: root.modeIcon
                     color: root.modeColor
-                    fill: mode !== "float" ? 1 : 0
+                    fill: (mode !== "float" && mode !== "freeform") ? 1 : 0
                     fontStyle: Tokens.font.icon.medium
 
                     Behavior on fill  { Anim { type: Anim.DefaultEffects } }

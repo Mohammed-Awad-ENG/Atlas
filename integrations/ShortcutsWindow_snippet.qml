@@ -19,7 +19,7 @@
     {
         name: Tr.tr("Cycle Layout Mode"),
         keys: "SUPER + G / SUPER + ALT + G",
-        desc: Tr.tr("Cycle workspace between PaperWM (scroll strip), Custom 2D Canvas, and Float"),
+        desc: Tr.tr("Cycle workspace between Columns (scroll strip), Custom 2D Canvas, and Freeform"),
         category: "Spatial",
         icon: "view_column"
     },
@@ -66,23 +66,23 @@
         icon: "fullscreen"
     },
     {
-        name: Tr.tr("Float Place: Toggle Active Slot"),
+        name: Tr.tr("Freeform Place: Toggle Active Slot"),
         keys: "SUPER + ALT + F",
-        desc: Tr.tr("Toggle active slot as a multi-app Float Place; newly opened apps join and tile natively"),
+        desc: Tr.tr("Toggle active slot as a multi-app Freeform Place; newly opened apps join and tile natively"),
         category: "Spatial",
         icon: "dashboard"
     },
     {
-        name: Tr.tr("Float Place: Minimap Grouping"),
+        name: Tr.tr("Freeform Place: Minimap Grouping"),
         keys: "Minimap Drag onto Slot",
-        desc: Tr.tr("Drag an app card onto an occupied slot in 2D minimap to group into a Float Place"),
+        desc: Tr.tr("Drag an app card onto an occupied slot in 2D minimap to group into a Freeform Place"),
         category: "Spatial",
         icon: "layers"
     },
     {
-        name: Tr.tr("Float Place: Internal Navigation"),
+        name: Tr.tr("Freeform Place: Internal Navigation"),
         keys: "SUPER + \u2190 \u2192 \u2191 \u2193",
-        desc: Tr.tr("Navigate between tiled apps inside a Float Place before camera pans to adjacent slots"),
+        desc: Tr.tr("Navigate between tiled apps inside a Freeform Place before camera pans to adjacent slots"),
         category: "Spatial",
         icon: "grid_view"
     },
@@ -94,9 +94,9 @@
         icon: "drag_indicator"
     },
     {
-        name: Tr.tr("Paper Strip Width Ratio"),
+        name: Tr.tr("Columns Strip Width Ratio"),
         keys: "SUPER + ALT + +/-",
-        desc: Tr.tr("Increase or decrease window column width ratio on PaperWM strip"),
+        desc: Tr.tr("Increase or decrease window column width ratio on Columns strip"),
         category: "Spatial",
         icon: "view_stream"
     },

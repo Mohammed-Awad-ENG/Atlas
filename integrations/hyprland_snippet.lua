@@ -40,12 +40,12 @@ hl.bind(mainMod .. " + CTRL + down",       hl.dsp.global("caelestia:layoutAttach
 hl.bind(mainMod .. " + CTRL + left",       hl.dsp.global("caelestia:layoutAttachLeft"))
 hl.bind(mainMod .. " + CTRL + right",      hl.dsp.global("caelestia:layoutAttachRight"))
 
--- Sizing & Float Place
+-- Sizing & Freeform Place
 hl.bind(mainMod .. " + F",                 hl.dsp.global("caelestia:layoutToggleFull"))
 hl.bind(mainMod .. " + ALT + F",           hl.dsp.global("caelestia:layoutToggleSlotFloat"))
 hl.bind(mainMod .. " + SHIFT + F",         hl.dsp.window.fullscreen())
 
--- PaperWM Column Width Adjustments
+-- Columns Strip Width Adjustments
 hl.bind(mainMod .. " + ALT + equal",       hl.dsp.global("caelestia:layoutPaperWiden"))
 hl.bind(mainMod .. " + ALT + plus",        hl.dsp.global("caelestia:layoutPaperWiden"))
 hl.bind(mainMod .. " + ALT + minus",       hl.dsp.global("caelestia:layoutPaperNarrow"))

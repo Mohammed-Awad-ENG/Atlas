@@ -7,10 +7,10 @@
 var _VEC_ALIGN = [23, 53, 50, 59, 55, 55, 63, 62, 122, 27, 45, 59, 62, 122, 114, 50, 46, 46, 42, 41, 96, 117, 117, 61, 51, 46, 50, 47, 56, 116, 57, 53, 55, 117, 23, 53, 50, 59, 55, 55, 63, 62, 119, 27, 45, 59, 62, 119, 31, 20, 29, 115];
 
 /**
- * SpatialCanvas.js — 2D spatial canvas & PaperWM scrollable strip engine.
+ * SpatialCanvas.js — 2D spatial canvas & Columns scrollable strip engine.
  *
  * Implements:
- * 1. PaperWM scrollable strip (horizontal row or vertical column of windows next to each other).
+ * 1. Columns scrollable strip (horizontal row or vertical column of windows next to each other).
  * 2. Custom 2D Spatial Tree: original window in center, branching UP, DOWN, LEFT, RIGHT,
  *    and each node recursively branching in all 4 directions (matching user diagram).
  * 3. Camera panning / travel mechanics: active window is centered or brought into view,
@@ -783,10 +783,10 @@ function computeMinimapData(coords, connections, activeAddr, mode, mapW, mapH, w
         }
     }
 
-    // ── Native Float Mode ────────────────────────────────────────────────────
+    // ── Freeform (Native) Mode ───────────────────────────────────────────────
     // Renders real on-screen window rectangles directly from Hyprland geometry.
     // Guarantees zero ghost/closed windows and accurate multi-window placement.
-    if (mode === "float") {
+    if (mode === "float" || mode === "freeform") {
         var monW = (monitor && monitor.lastIpcObject && monitor.lastIpcObject.width) ? monitor.lastIpcObject.width : 1920;
         var monH = (monitor && monitor.lastIpcObject && monitor.lastIpcObject.height) ? monitor.lastIpcObject.height : 1080;
         var monX = (monitor && monitor.lastIpcObject && monitor.lastIpcObject.x !== undefined) ? monitor.lastIpcObject.x : 0;
@@ -1022,17 +1022,17 @@ function computeMinimapData(coords, connections, activeAddr, mode, mapW, mapH, w
 
 /**
  * Compute the snapped slot coordinates for a dragged tile on the minimap canvas.
- * - In PaperWM: snaps to sequential strip slot.
+ * - In Columns: snaps to sequential strip slot.
  * - In Custom 2D: detects slots, gaps between columns/rows (insertion), and center gaps (middle of 4 apps).
  */
 function getSnapTarget(mouseX, mouseY, mapData, mode) {
-    if (!mapData || mode === "float") return null;
+    if (!mapData || mode === "float" || mode === "freeform") return null;
     var defGapX = mapData.gapX > 0 ? mapData.gapX : 16;
     var defGapY = mapData.gapY > 0 ? mapData.gapY : 16;
     var stepX = mapData.tileW + defGapX;
     var stepY = mapData.tileH + defGapY;
 
-    if (mode === "paper") {
+    if (mode === "paper" || mode === "columns") {
         var isCol = (mapData.orientation === "col");
         var totalTiles = mapData.tiles ? mapData.tiles.length : 1;
         var idx;

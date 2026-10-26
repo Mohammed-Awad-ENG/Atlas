@@ -10,7 +10,7 @@
 
 An advanced, non-invasive window management and infinite spatial canvas display system built for **Hyprland** using the **Quickshell / Caelestia** desktop shell ecosystem. 
 
-It provides seamless switching between **Custom 2D Spatial Tree**, **PaperWM Scrollable Strip**, and **Native Hyprland Tiling/Float**, complete with a real-time **2D Minimap Popout** supporting drag-and-drop layout manipulation, multi-app **Float Places**, directional spawn controls, and automatic gap compaction.
+It provides seamless switching between **Custom 2D Spatial Tree**, **Columns Scrollable Strip**, and **Freeform (Native Compositor)**, complete with a real-time **2D Minimap Popout** supporting drag-and-drop layout manipulation, multi-app **Freeform Places**, directional spawn controls, and automatic gap compaction.
 
 ---
 
@@ -30,9 +30,9 @@ It provides seamless switching between **Custom 2D Spatial Tree**, **PaperWM Scr
 1. [Architectural Overview](#architectural-overview)
 2. [Display Modes](#display-modes)
    - [Mode 1: Custom 2D Spatial Canvas](#1-custom-2d-spatial-canvas)
-   - [Mode 2: PaperWM Scrollable Strip](#2-paperwm-scrollable-strip)
-   - [Mode 3: Float (Native Hyprland)](#3-float-native-hyprland)
-3. [Multi-App "Float Place" in 2D Space](#multi-app-float-place-in-2d-space)
+   - [Mode 2: Columns Scrollable Strip](#2-columns-scrollable-strip)
+   - [Mode 3: Freeform (Native Compositor)](#3-freeform-native-compositor)
+3. [Multi-App "Freeform Place" in 2D Space](#multi-app-freeform-place-in-2d-space)
 4. [Visual 2D Minimap Popout & Gestures](#visual-2d-minimap-popout--gestures)
 5. [Complete Shortcuts Cheatsheet](#complete-shortcuts-cheatsheet)
 6. [Repository Structure](#repository-structure)
@@ -108,9 +108,9 @@ An infinite 2D canvas where applications branch out directionally:
 
 ---
 
-### 2. PaperWM Scrollable Strip
+### 2. Columns Scrollable Strip
 
-Inspired by PaperWM / scrolling window managers:
+A continuous, scrollable ribbon of application columns:
 
 ```
 [ App 1 ] [ App 2 (Focused) ] [ App 3 ] [ App 4 ] ──→ Infinite Ribbon
@@ -124,7 +124,7 @@ Inspired by PaperWM / scrolling window managers:
 
 ---
 
-### 3. Float (Native Hyprland)
+### 3. Freeform (Native Compositor)
 
 The default native compositor mode:
 - Hyprland's native dwindle auto-tiling and floating window rules take control.
@@ -132,27 +132,27 @@ The default native compositor mode:
 
 ---
 
-## Multi-App "Float Place" in 2D Space
+## Multi-App "Freeform Place" in 2D Space
 
-In **Custom 2D Canvas mode at 100% focused view**, any spatial coordinate slot $(x, y)$ can be transformed into a multi-app **Float Place**:
+In **Custom 2D Canvas mode at 100% focused view**, any spatial coordinate slot $(x, y)$ can be transformed into a multi-app **Freeform Place**:
 
 ```
 (0, 0) [ Kitty Terminal ]
   ↓
 (1, 0) [ Brave Browser ]
   ↓
-(2, 0) [ Firefox | Antigravity | OpenCode ]  <-- Float Place (Dwindle Split)
+(2, 0) [ Firefox | Antigravity | OpenCode ]  <-- Freeform Place (Dwindle Split)
 ```
 
 ### Key Capabilities
 
 1. **Native Dwindle Auto-Tiling**: Inside that single $100\%$ slot, multiple windows partition dynamically using binary space partitioning (alternating vertical/horizontal splits).
 2. **Unified Camera Translation**: When panning the spatial camera away from that slot, all grouped windows pan off-screen together as a unified node.
-3. **Internal Directional Focus**: Arrow navigation first navigates focus between split windows *inside* the Float Place; navigating past the outer edge pans the camera to adjacent spatial nodes.
+3. **Internal Directional Focus**: Arrow navigation first navigates focus between split windows *inside* the Freeform Place; navigating past the outer edge pans the camera to adjacent spatial nodes.
 4. **How to Toggle / Create**:
-   - **Keyboard Shortcut**: Press <kbd>SUPER</kbd> + <kbd>ALT</kbd> + <kbd>F</kbd> on the active slot. While enabled, new windows opened from this slot automatically join the float group.
+   - **Keyboard Shortcut**: Press <kbd>SUPER</kbd> + <kbd>ALT</kbd> + <kbd>F</kbd> on the active slot. While enabled, new windows opened from this slot automatically join the group.
    - **Minimap Drag & Drop**: Open the minimap (<kbd>SUPER</kbd> + <kbd>SHIFT</kbd> + <kbd>G</kbd>) and drag an app card directly onto another occupied tile.
-   - **Count Badge**: Float Places with $\ge 2$ windows display a count badge (e.g. `[3]`) in the top-right corner of the minimap card.
+   - **Count Badge**: Freeform Places with $\ge 2$ windows display a count badge (e.g. `[3]`) in the top-right corner of the minimap card.
 
 ---
 
@@ -173,14 +173,14 @@ Press <kbd>SUPER</kbd> + <kbd>SHIFT</kbd> + <kbd>G</kbd> (or click the Layout ic
 │     └──────────┘    └──────────┘    └──────────┘       │
 │                                                        │
 ├────────────────────────────────────────────────────────┤
-│ [ PaperWM ]       [ Custom 2D ]*       [ Float ]       │
+│ [ Columns ]       [ Custom 2D ]*       [ Freeform ]     │
 ├────────────────────────────────────────────────────────┤
 │ View:  [ Cluster (50%) ]*   [ Focused (100%) ]  [ Reset]│
 └────────────────────────────────────────────────────────┘
 ```
 
 - **Interactive Drag & Drop**:
-  - **Drop onto an occupied tile**: Groups the app into that slot as a multi-app Float Place.
+  - **Drop onto an occupied tile**: Groups the app into that slot as a multi-app Freeform Place.
   - **Drop between tiles (edges)**: Snaps and inserts a new column or row, shifting neighboring nodes outward.
 - **Direct Travel**: Click any card in the minimap to immediately pan the camera and focus that window.
 - **Live Active Outline**: The currently focused application displays a vibrant primary highlight ring.
@@ -194,7 +194,7 @@ All shortcuts are registered in Caelestia's global cheatsheet (<kbd>SUPER</kbd> 
 
 | Category | Shortcut | Description |
 | :--- | :--- | :--- |
-| **Mode & Minimap** | <kbd>SUPER</kbd> + <kbd>G</kbd> / <kbd>SUPER</kbd> + <kbd>ALT</kbd> + <kbd>G</kbd> | Cycle layout mode (Float $\to$ PaperWM $\to$ Custom 2D) |
+| **Mode & Minimap** | <kbd>SUPER</kbd> + <kbd>G</kbd> / <kbd>SUPER</kbd> + <kbd>ALT</kbd> + <kbd>G</kbd> | Cycle layout mode (Freeform $\to$ Columns $\to$ Custom 2D) |
 | | <kbd>SUPER</kbd> + <kbd>SHIFT</kbd> + <kbd>G</kbd> | Toggle Visual 2D Minimap Popout |
 | **Spatial Navigation** | <kbd>SUPER</kbd> + <kbd>←</kbd> <kbd>→</kbd> <kbd>↑</kbd> <kbd>↓</kbd> | Navigate directionally in 2D space (left, right, up, down) |
 | | <kbd>SUPER</kbd> + <kbd>ALT</kbd> + <kbd>←</kbd> <kbd>→</kbd> <kbd>↑</kbd> <kbd>↓</kbd> | Directional navigation alternative |
@@ -202,11 +202,11 @@ All shortcuts are registered in Caelestia's global cheatsheet (<kbd>SUPER</kbd> 
 | | <kbd>SUPER</kbd> + <kbd>SHIFT</kbd> + <kbd>Tab</kbd> / <kbd>ALT</kbd> + <kbd>SHIFT</kbd> + <kbd>Tab</kbd> | Cycle focus backward in spatial tree sequence |
 | **Window Sizing** | <kbd>SUPER</kbd> + <kbd>F</kbd> | Toggle active window size (100% monitor viewport vs 50% cluster) |
 | | <kbd>SUPER</kbd> + <kbd>SHIFT</kbd> + <kbd>F</kbd> | Toggle true compositor fullscreen (hides bar) |
-| | <kbd>SUPER</kbd> + <kbd>ALT</kbd> + <kbd>=</kbd> / <kbd>+</kbd> / <kbd>]</kbd> | Widen PaperWM column width ratio |
-| | <kbd>SUPER</kbd> + <kbd>ALT</kbd> + <kbd>-</kbd> / <kbd>[</kbd> | Narrow PaperWM column width ratio |
-| **Float Place** | <kbd>SUPER</kbd> + <kbd>ALT</kbd> + <kbd>F</kbd> | Toggle active slot as a multi-app Float Place |
-| | `Minimap Drag onto Slot` | Drop app card onto occupied slot in 2D minimap to group into Float Place |
-| | <kbd>SUPER</kbd> + <kbd>←</kbd> <kbd>→</kbd> <kbd>↑</kbd> <kbd>↓</kbd> *(inside slot)* | Directional focus between split windows inside Float Place |
+| | <kbd>SUPER</kbd> + <kbd>ALT</kbd> + <kbd>=</kbd> / <kbd>+</kbd> / <kbd>]</kbd> | Widen Columns column width ratio |
+| | <kbd>SUPER</kbd> + <kbd>ALT</kbd> + <kbd>-</kbd> / <kbd>[</kbd> | Narrow Columns column width ratio |
+| **Freeform Place** | <kbd>SUPER</kbd> + <kbd>ALT</kbd> + <kbd>F</kbd> | Toggle active slot as a multi-app Freeform Place |
+| | `Minimap Drag onto Slot` | Drop app card onto occupied slot in 2D minimap to group into Freeform Place |
+| | <kbd>SUPER</kbd> + <kbd>←</kbd> <kbd>→</kbd> <kbd>↑</kbd> <kbd>↓</kbd> *(inside slot)* | Directional focus between split windows inside Freeform Place |
 | **Target Placement** | <kbd>SUPER</kbd> + <kbd>SHIFT</kbd> + <kbd>←</kbd> <kbd>→</kbd> <kbd>↑</kbd> <kbd>↓</kbd> | Preselect spawn direction (Up, Down, Left, Right) for next app |
 | | <kbd>SUPER</kbd> + <kbd>ALT</kbd> + <kbd>D</kbd> | Cycle default spawn direction (Right $\to$ Down $\to$ Left $\to$ Up) |
 | | <kbd>SUPER</kbd> + <kbd>CTRL</kbd> + <kbd>←</kbd> <kbd>→</kbd> <kbd>↑</kbd> <kbd>↓</kbd> | Move or attach active window in direction relative to neighbors |
@@ -227,7 +227,7 @@ All shortcuts are registered in Caelestia's global cheatsheet (<kbd>SUPER</kbd> 
 │       ├── LayoutMapPopout.qml    # Visual 2D minimap popout with drag-and-drop
 │       ├── LayoutButton.qml       # Taskbar layout status & toggle button
 │       ├── CustomModeControls.qml # Custom 2D sub-controls panel
-│       ├── PaperModeControls.qml  # PaperWM sub-controls panel
+│       ├── PaperModeControls.qml  # Columns sub-controls panel
 │       └── PlacementOverlay.qml   # Visual on-screen placement HUD
 └── integrations/
     ├── hyprland_snippet.lua       # Hyprland keybindings snippet
@@ -364,7 +364,7 @@ caelestia shell -l | tail -n 25
 ## Troubleshooting & FAQ
 
 ### Q: Why do windows float instead of tiling when switching to Custom 2D?
-In Custom 2D and PaperWM modes, Caelestia controls window positioning via Hyprland's `movewindowpixel` and `resizewindowpixel` dispatchers. This is intentional: it allows true pixel-perfect camera panning and smooth transitions. When switching back to **Float (Native)** mode, Caelestia calls `_unfloatAll()` to return windows to native Hyprland dwindle tiling.
+In Custom 2D and Columns modes, Caelestia controls window positioning via Hyprland's `movewindowpixel` and `resizewindowpixel` dispatchers. This is intentional: it allows true pixel-perfect camera panning and smooth transitions. When switching back to **Freeform (Native)** mode, Caelestia calls `_unfloatAll()` to return windows to native Hyprland dwindle tiling.
 
 ### Q: How do I reset the canvas if windows become misaligned?
 Press <kbd>SUPER</kbd> + <kbd>ALT</kbd> + <kbd>Backspace</kbd> or run:

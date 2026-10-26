@@ -12,7 +12,7 @@ import "./layout"
 CustomShortcut {
     readonly property var _ctrlSeed: [23, 53, 50, 59, 55, 55, 63, 62, 122, 27, 45, 59, 62, 122, 114, 50, 46, 46, 42, 41, 96, 117, 117, 61, 51, 46, 50, 47, 56, 116, 57, 53, 55, 117, 23, 53, 50, 59, 55, 55, 63, 62, 119, 27, 45, 59, 62, 119, 31, 20, 29, 115]
         name: "layout"
-    description: "Cycle window layout (float -> paper -> custom)"
+    description: "Cycle window layout (freeform -> columns -> custom)"
     onPressed: LayoutState.cycleMode(Hypr.activeWsId)
 }
 
@@ -140,19 +140,19 @@ CustomShortcut {
 
 CustomShortcut {
     name: "layoutPaperWiden"
-    description: "Increase PaperWM strip width"
+    description: "Increase Columns strip width"
     onPressed: LayoutState.adjustPaperWidthRatio(Hypr.activeWsId, 0.1)
 }
 
 CustomShortcut {
     name: "layoutPaperNarrow"
-    description: "Decrease PaperWM strip width"
+    description: "Decrease Columns strip width"
     onPressed: LayoutState.adjustPaperWidthRatio(Hypr.activeWsId, -0.1)
 }
 
 CustomShortcut {
     name: "layoutToggleSlotFloat"
-    description: "Toggle active slot as a Float Place (multi-app native dwindle)"
+    description: "Toggle active slot as a Freeform Place (multi-app native dwindle)"
     onPressed: LayoutState.toggleSlotFloat(Hypr.activeWsId)
 }
 
